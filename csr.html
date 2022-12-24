@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ripe-sdk@latest/dist/ripe.three.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://sdk.platforme.com/css/ripe.css" />
+
+<body>
+	<div class="content">
+		<div class="col-1">
+			<div id="configurator" class="configurator"></div>
+		</div>
+		<div class="col-2">
+			<div class="title">Personalization:</div>
+			<input
+				id="input-initials"
+				class="input-initials"
+				type="text"
+				placeholder="Initials text"
+				oninput="onInitialsInput(event)"
+			/>
+		</div>
+	</div>
+</body>
+
+<style>
+	body {
+		font-family: Arial;
+	}
+
+	.content {
+		display: flex;
+	}
+
+	.content > .col-1 > #configurator {
+		cursor: grab;
+		width: 850px;
+		height: 850px;
+	}
+
+	.content > .col-1 > #configurator:active {
+		cursor: grabbing;
+	}
+
+	.content > .col-2 > .input-initials {
+		margin: 4px 2px 4px 2px;
+		padding: 4px 6px 4px 6px;
+		border: 1px solid #cccccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}	
+</style>
+
+<script>
+	let initialsTimeout = null;
+
+	window.onload = async function () {
+		// initializes ripe instance
+		window.ripeInstance = new Ripe({
+			brand: "dummy",
+			model: "cube",
+			url: "https://ripe-core-now.platforme.com/api/"
+		});
+
+		// setup configurator
+		const configuratorElement = document.getElementById("configurator");
+		const configurator = window.ripeInstance.bindConfigurator(configuratorElement, {
+			width: 850,
+			height: 850,
+			type: "csr"
+		});
+
+		// waits for ripe instance to load
+		await window.ripeInstance.isReady();
+	};
+
+	async function onInitialsInput(event) {
+		clearTimeout(initialsTimeout);
+		initialsTimeout = setTimeout(async () => {
+			const text = event.target.value;
+			await window.ripeInstance.trigger("initials", text, null, { noRemote: true });
+		}, 125);
+	}
+</script>
+
+</html>
