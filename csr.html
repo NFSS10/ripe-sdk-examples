@@ -5,6 +5,13 @@
 
 <body>
 	<div id="configurator" class="configurator"></div>
+	<input
+		id="input-initials"
+		class="input-initials"
+		type="text"
+		placeholder="Initials text"
+		oninput="onInitialsInput(event)"
+	/>
 </body>
 
 <style>
@@ -43,6 +50,14 @@
 		// waits for ripe instance to load
 		await window.ripeInstance.isReady();
 	};
+
+		async function onInitialsInput(event) {
+			clearTimeout(initialsTimeout);
+            debounceTimeout = setTimeout(async () => {
+				const text = event.target.value;
+				await window.ripeInstance.trigger("initials", text, null, {});
+            }, 250);
+		}
 </script>
 
 </html>
