@@ -31,11 +31,14 @@
 </style>
 
 <script>
+	let initialsTimeout = null;
+
 	window.onload = async function () {
 		// initializes ripe instance
 		window.ripeInstance = new Ripe({
-			brand: "swear",
-			model: "vyner"
+			brand: "dummy",
+			model: "cube",
+			url: "https://ripe-core-now.platforme.com/api/"
 		});
 
 		// setup configurator
@@ -43,8 +46,7 @@
 		const configurator = window.ripeInstance.bindConfigurator(configuratorElement, {
 			width: 1250,
 			height: 1250,
-			type: "csr",
-			awaitPostConfig: true
+			type: "csr"
 		});
 
 		// waits for ripe instance to load
