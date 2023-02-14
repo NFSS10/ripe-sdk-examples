@@ -4,14 +4,21 @@
 <link rel="stylesheet" type="text/css" href="https://sdk.platforme.com/css/ripe.css" />
 
 <body>
-	<div id="configurator" class="configurator"></div>
-	<input
-		id="input-initials"
-		class="input-initials"
-		type="text"
-		placeholder="Initials text"
-		oninput="onInitialsInput(event)"
-	/>
+	<div class="content">
+		<div class="col-1">
+			<div id="configurator" class="configurator"></div>
+		</div>
+		<div class="col-2">
+			<div class="title">Personalization:</div>
+			<input
+				id="input-initials"
+				class="input-initials"
+				type="text"
+				placeholder="Initials text"
+				oninput="onInitialsInput(event)"
+			/>
+		</div>
+	</div>
 </body>
 
 <style>
@@ -19,15 +26,27 @@
 		font-family: Arial;
 	}
 
-	#configurator {
-		cursor: grab;
-		width: 1250px;
-		height: 1250px;
+	.content {
+		display: flex;
 	}
 
-	#configurator:active {
+	.content > .col-1 > #configurator {
+		cursor: grab;
+		width: 750px;
+		height: 750px;
+	}
+
+	.content > .col-1 > #configurator:active {
 		cursor: grabbing;
 	}
+
+	.content > .col-2 > .input-initials {
+		margin: 4px 2px 4px 2px;
+		padding: 4px 6px 4px 6px;
+		border: 1px solid #cccccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}	
 </style>
 
 <script>
@@ -44,8 +63,8 @@
 		// setup configurator
 		const configuratorElement = document.getElementById("configurator");
 		const configurator = window.ripeInstance.bindConfigurator(configuratorElement, {
-			width: 1250,
-			height: 1250,
+			width: 750,
+			height: 750,
 			type: "csr"
 		});
 
