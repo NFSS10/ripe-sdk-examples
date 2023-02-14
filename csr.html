@@ -53,13 +53,13 @@
 		await window.ripeInstance.isReady();
 	};
 
-		async function onInitialsInput(event) {
-			clearTimeout(initialsTimeout);
-            debounceTimeout = setTimeout(async () => {
-				const text = event.target.value;
-				await window.ripeInstance.trigger("initials", text, null, {});
-            }, 250);
-		}
+	async function onInitialsInput(event) {
+		clearTimeout(initialsTimeout);
+		debounceTimeout = setTimeout(async () => {
+			const text = event.target.value;
+			await window.ripeInstance.trigger("initials", text, null, {});
+		}, 250);
+	}
 </script>
 
 </html>
